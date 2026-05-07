@@ -21,3 +21,10 @@ export async function getShipments() {
 
   return toReturn;
 }
+
+export async function assignShipment(shipmentId, carrierId) {
+  return fetch(`/api/shipments/${shipmentId}/assign`, {
+    method: "PATCH",
+    body: JSON.stringify({ carrierId }),
+  });
+}
