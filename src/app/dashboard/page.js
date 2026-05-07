@@ -1,3 +1,5 @@
+import OperatorDashboardView from "@/features/dashboard/views/operatorDashboardView";
+
 export default function Dashboard() {
   return (
     <div className="">
@@ -17,6 +19,7 @@ export default function Dashboard() {
         <div>Envio #666666</div>
         <div>Envio #777777</div>
       </div>
+      <OperatorDashboardView />
     </div>
   );
 }
