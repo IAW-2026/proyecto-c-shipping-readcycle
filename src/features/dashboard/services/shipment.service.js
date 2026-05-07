@@ -13,7 +13,7 @@ export async function getShipments(params) {
     query.set("status", params.status);
   }
 
-  const response = await fetch(`/api/shipments?${query}`);
+  //const response = await fetch(`/api/shipments?${query}`);
   let toReturn;
 
   // toReturn = response.json();

@@ -11,7 +11,7 @@ export function useShipments() {
   useEffect(() => {
     async function load() {
       try {
-        const data = await getShipments();
+        const data = await getShipments({});
         setShipments(data);
       } catch (err) {
         setError(err);
