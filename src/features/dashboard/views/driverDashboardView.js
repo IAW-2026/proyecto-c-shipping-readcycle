@@ -9,6 +9,11 @@ export default function DriverDashboardView() {
     carrierId: 111,
   });
   return (
-    <ShipmentTable shipments={shipments} loading={loading} error={error} />
+    <ShipmentTable
+      shipments={shipments}
+      loading={loading}
+      error={error}
+      carrierAssign={false}
+    />
   );
 }
