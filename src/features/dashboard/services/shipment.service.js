@@ -1,10 +1,19 @@
-export async function getShipments() {
-  //const response = await fetch("/api/shipments");
+export async function getShipments(params) {
+  const query = new URLSearchParams();
 
-  // if (!response.ok) {
-  //   throw new Error("Failed to fetch shipments");
-  // }
+  if (params.role) {
+    query.set("role", params.role);
+  }
 
+  if (params.carrierId) {
+    query.set("carrierId", params.carrierId);
+  }
+
+  if (params.status) {
+    query.set("status", params.status);
+  }
+
+  const response = await fetch(`/api/shipments?${query}`);
   let toReturn;
 
   // toReturn = response.json();
