@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { clerkClient } from "@clerk/nextjs/server";
 
 import prisma from "@/lib/prisma";
-import { requireAdmin } from "@/lib/require-admin";
+import requireAdmin from "@/lib/requireAdmin";
 
 export async function GET() {
   const authResult = await requireAdmin();
