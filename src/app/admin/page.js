@@ -26,7 +26,7 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+      <h1 className="text-3xl font-bold text-black mb-8">Dashboard</h1>
 
       <div className="grid grid-cols-4 gap-6">
         <Card title="Usuarios" value={totalUsers} />
@@ -46,7 +46,7 @@ function Card({ title, value }) {
     <div className="bg-white rounded-xl shadow p-6">
       <h3 className="text-gray-500 text-sm">{title}</h3>
 
-      <p className="text-4xl font-bold mt-4">{value}</p>
+      <p className="text-4xl text-black font-bold mt-4">{value}</p>
     </div>
   );
 }

@@ -3,7 +3,7 @@ export default function Topbar({ user }) {
     <header className="bg-white border-b px-6 py-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-semibold text-xl">Admin Panel</h2>
+          <h2 className="text-black font-semibold text-xl">Admin Panel</h2>
         </div>
 
         <div>

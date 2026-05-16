@@ -16,7 +16,7 @@ export default function UserRow({ user }) {
   }
 
   return (
-    <tr className="border-t">
+    <tr className="border-t text-black">
       <td className="p-4">{user.username}</td>
 
       <td className="p-4">{user.email}</td>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "./auth";
 
-export async function requireAdmin() {
+export default async function requireAdmin() {
   const user = await getCurrentUser();
 
   if (!user) {

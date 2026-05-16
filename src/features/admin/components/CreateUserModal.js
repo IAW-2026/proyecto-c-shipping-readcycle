@@ -41,7 +41,10 @@ export default function CreateUserModal() {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl w-100">
+      <form
+        onSubmit={handleSubmit}
+        className="text-black bg-white p-6 rounded-xl w-100"
+      >
         <h2 className="text-2xl font-bold mb-6">Crear usuario</h2>
 
         <div className="flex flex-col gap-4">
@@ -96,6 +99,12 @@ export default function CreateUserModal() {
           </select>
 
           <button className="bg-black text-white p-3 rounded">Crear</button>
+          <button
+            onClick={() => setOpen(false)}
+            className="bg-red-500 text-white p-3 rounded"
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>
