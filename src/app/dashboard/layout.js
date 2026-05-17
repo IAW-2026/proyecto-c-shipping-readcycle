@@ -1,6 +1,29 @@
 import { UserButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({ children }) {
+import prisma from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
+
+export default async function DashboardLayout({ children }) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      clerkUserId: userId,
+    },
+  });
+
+  if (!user) {
+    redirect("/unauthorized");
+  }
+
+  if (user.role !== "OPERATOR" && user.role !== "CARRIER") {
+    redirect("/admin");
+  }
   return (
     <div className="min-h-full">
       <nav className="flex justify-between p-5 items-center">

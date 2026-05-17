@@ -1,3 +1,5 @@
+import { UserButton } from "@clerk/nextjs";
+
 export default function Topbar({ user }) {
   return (
     <header className="bg-white border-b px-6 py-4">
@@ -7,7 +9,7 @@ export default function Topbar({ user }) {
         </div>
 
         <div>
-          <p className="text-sm text-gray-600">{user.email}</p>
+          <UserButton />
         </div>
       </div>
     </header>
