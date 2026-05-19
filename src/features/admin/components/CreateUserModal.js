@@ -93,7 +93,7 @@ export default function CreateUserModal() {
           >
             <option value="OPERATOR">OPERATOR</option>
 
-            <option value="DRIVER">DRIVER</option>
+            <option value="CARRIER">CARRIER</option>
 
             <option value="ADMIN">ADMIN</option>
           </select>
