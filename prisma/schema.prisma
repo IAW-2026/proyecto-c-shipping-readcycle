@@ -36,3 +36,30 @@ enum Role {
   CARRIER
   ADMIN
 }
+
+model Shipment {
+  id        String   @id @default(cuid())
+  orderId   String
+  carrierId String
+
+  statuses  Status[]
+}
+
+model Status {
+  id          String            @id @default(cuid())
+  description StatusDescription
+  timestamp   DateTime          @default(now())
+
+  shipmentId  String
+  shipment    Shipment          @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+}
+
+enum StatusDescription {
+  PENDING
+  PICKED_UP
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+  CANCELLED
+}
