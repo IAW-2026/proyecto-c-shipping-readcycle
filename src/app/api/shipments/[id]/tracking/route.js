@@ -1,12 +1,13 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET /api/shipments/:id/tracking
 export async function GET(_, { params }) {
+  const { id } = await params;
   try {
     const statuses = await prisma.status.findMany({
       where: {
-        shipmentId: params.id,
+        shipmentId: id,
       },
       orderBy: {
         timestamp: "desc",
@@ -24,6 +25,7 @@ export async function GET(_, { params }) {
 
 // POST /api/shipments/:id/tracking
 export async function POST(req, { params }) {
+  const { id } = await params;
   try {
     const body = await req.json();
 
@@ -46,7 +48,7 @@ export async function POST(req, { params }) {
     const status = await prisma.status.create({
       data: {
         description,
-        shipmentId: params.id,
+        shipmentId: id,
       },
     });
 

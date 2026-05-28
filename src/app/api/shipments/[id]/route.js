@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET /api/shipments/:id
@@ -57,22 +57,25 @@ export async function PUT(req, { params }) {
   }
 }
 
-// DELETE /api/shipments/:id
-export async function DELETE(_, { params }) {
-  try {
-    await prisma.shipment.delete({
-      where: {
-        id: params.id,
-      },
-    });
+// // DELETE /api/shipments/:id
+// export async function DELETE(_, { context }) {
+//   try {
+//     const params = await context;
+//     console.log(params.id);
 
-    return NextResponse.json({
-      message: "Shipment deleted",
-    });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Error deleting shipment" },
-      { status: 500 },
-    );
-  }
-}
+//     await prisma.shipment.delete({
+//       where: {
+//         id: params.id,
+//       },
+//     });
+
+//     return NextResponse.json({
+//       message: "Shipment deleted",
+//     });
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: "Error deleting shipment" },
+//       { status: 500 },
+//     );
+//   }
+// }
