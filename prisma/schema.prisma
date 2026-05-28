@@ -40,7 +40,7 @@ enum Role {
 model Shipment {
   id        String   @id @default(cuid())
   orderId   String
-  carrierId String
+  carrierId String?
 
   statuses  Status[]
 }
