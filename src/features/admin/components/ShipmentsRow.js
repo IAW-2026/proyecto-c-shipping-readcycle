@@ -12,7 +12,7 @@ const AVAILABLE_STATUSES = [
   "CANCELLED",
 ];
 
-export default function ShipmentRow({ shipment, carriers }) {
+export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
   const [expanded, setExpanded] = useState(false);
 
   const latestStatus = shipment.statuses[0]?.description || "PENDING";
@@ -56,21 +56,23 @@ export default function ShipmentRow({ shipment, carriers }) {
 
         <td className="p-4">{shipment.orderId}</td>
 
-        <td className="p-4">
-          <select
-            value={shipment.carrierId || ""}
-            onChange={(e) => handleCarrierAssign(e.target.value)}
-            className="border rounded px-2 py-1"
-          >
-            <option value="">Sin asignar</option>
+        {canAssignCarrier && (
+          <td className="p-4">
+            <select
+              value={shipment.carrierId || ""}
+              onChange={(e) => handleCarrierAssign(e.target.value)}
+              className="border rounded px-2 py-1"
+            >
+              <option value="">Sin asignar</option>
 
-            {carriers.map((carrier) => (
-              <option key={carrier.id} value={carrier.id}>
-                {carrier.username}
-              </option>
-            ))}
-          </select>
-        </td>
+              {carriers.map((carrier) => (
+                <option key={carrier.id} value={carrier.id}>
+                  {carrier.username}
+                </option>
+              ))}
+            </select>
+          </td>
+        )}
 
         <td className="p-4">
           <div className="flex flex-col gap-2">

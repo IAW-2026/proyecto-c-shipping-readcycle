@@ -1,9 +1,13 @@
 import prisma from "@/lib/prisma";
 
 import ShipmentsTable from "@/features/admin/components/ShipmentsTable";
+import { auth } from "@clerk/nextjs/server";
 
-export default async function OperatorDashboardView({ permissions }) {
+export default async function CarrierDashboardView({ permissions, carrierId }) {
   const shipments = await prisma.shipment.findMany({
+    where: {
+      carrierId: carrierId,
+    },
     include: {
       statuses: {
         orderBy: {
@@ -17,18 +21,5 @@ export default async function OperatorDashboardView({ permissions }) {
       id: "desc",
     },
   });
-
-  const carriers = await prisma.user.findMany({
-    where: {
-      role: "CARRIER",
-    },
-  });
-
-  return (
-    <ShipmentsTable
-      shipments={shipments}
-      carriers={carriers}
-      permissions={permissions}
-    />
-  );
+  return <ShipmentsTable shipments={shipments} permissions={permissions} />;
 }
