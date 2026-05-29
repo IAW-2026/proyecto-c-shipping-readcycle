@@ -3,10 +3,11 @@ import { NextResponse } from "next/server";
 
 // GET /api/shipments/:id
 export async function GET(_, { params }) {
+  const { id } = await params;
   try {
     const shipment = await prisma.shipment.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
       include: {
         statuses: {
@@ -37,10 +38,11 @@ export async function GET(_, { params }) {
 export async function PUT(req, { params }) {
   try {
     const body = await req.json();
+    const { id } = await params;
 
     const shipment = await prisma.shipment.update({
       where: {
-        id: params.id,
+        id: id,
       },
       data: {
         orderId: body.orderId,

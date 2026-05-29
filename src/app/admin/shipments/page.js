@@ -10,12 +10,18 @@ export default async function ShipmentsPage() {
         orderBy: {
           timestamp: "desc",
         },
-        take: 1,
+        // take: 1,
       },
     },
 
     orderBy: {
       id: "desc",
+    },
+  });
+
+  const carriers = await prisma.user.findMany({
+    where: {
+      role: "CARRIER",
     },
   });
 
@@ -27,7 +33,7 @@ export default async function ShipmentsPage() {
         <CreateShipmentModal />
       </div>
 
-      <ShipmentsTable shipments={shipments} />
+      <ShipmentsTable shipments={shipments} carriers={carriers} />
     </div>
   );
 }

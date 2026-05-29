@@ -1,6 +1,6 @@
 import ShipmentRow from "./ShipmentsRow";
 
-export default function ShipmentsTable({ shipments }) {
+export default function ShipmentsTable({ shipments, carriers }) {
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
       <table className="w-full">
@@ -20,7 +20,11 @@ export default function ShipmentsTable({ shipments }) {
 
         <tbody>
           {shipments.map((shipment) => (
-            <ShipmentRow key={shipment.id} shipment={shipment} />
+            <ShipmentRow
+              key={shipment.id}
+              shipment={shipment}
+              carriers={carriers}
+            />
           ))}
         </tbody>
       </table>
