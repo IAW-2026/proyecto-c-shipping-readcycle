@@ -20,8 +20,8 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl text-black font-bold">Shipments</h1>
+      <div className="mb-8">
+        <div className="w-24 h-1 bg-brand-clay rounded-full mt-3" />
       </div>
 
       {user.role === "OPERATOR" ? (

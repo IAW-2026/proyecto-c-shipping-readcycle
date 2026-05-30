@@ -17,6 +17,25 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
 
   const latestStatus = shipment.statuses[0]?.description || "PENDING";
 
+  function getStatusClass(status) {
+    switch (status) {
+      case "DELIVERED":
+        return "bg-green-100 text-green-700";
+
+      case "IN_TRANSIT":
+        return "bg-blue-100 text-blue-700";
+
+      case "FAILED":
+        return "bg-red-100 text-red-700";
+
+      case "CANCELLED":
+        return "bg-gray-200 text-gray-700";
+
+      default:
+        return "bg-orange-100 text-orange-700";
+    }
+  }
+
   async function handleStatusChange(status) {
     await fetch(`/api/shipments/${shipment.id}/tracking`, {
       method: "POST",
@@ -51,17 +70,27 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
 
   return (
     <>
-      <tr className="border-t text-black">
-        <td className="p-4">{shipment.id}</td>
+      <tr className="text-brand-forest hover:bg-brand-beige transition-colors">
+        <td className="px-4 py-2 text-sm">{shipment.id}</td>
 
-        <td className="p-4">{shipment.orderId}</td>
+        <td className="px-4 py-2 text-sm">{shipment.orderId}</td>
 
         {canAssignCarrier && (
-          <td className="p-4">
+          <td className="px-4 py-2 text-sm">
             <select
               value={shipment.carrierId || ""}
               onChange={(e) => handleCarrierAssign(e.target.value)}
-              className="border rounded px-2 py-1"
+              className="
+              border border-brand-sand
+              rounded-lg
+              px-3
+              py-2
+              bg-white
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+              "
             >
               <option value="">Sin asignar</option>
 
@@ -74,13 +103,29 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
           </td>
         )}
 
-        <td className="p-4">
+        <td className="px-4 py-2 text-sm">
           <div className="flex flex-col gap-2">
-            <span>{latestStatus}</span>
+            <span
+              className={`inline-flex w-fit px-3 py-1 rounded-full text-sm font-medium ${getStatusClass(
+                latestStatus,
+              )}`}
+            >
+              {latestStatus}
+            </span>
 
             <select
               onChange={(e) => handleStatusChange(e.target.value)}
-              className="border rounded px-2 py-1"
+              className="
+              border border-brand-sand
+              rounded-lg
+              px-3
+              py-2
+              bg-white
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+              "
               defaultValue=""
             >
               <option disabled value="">
@@ -96,11 +141,23 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
           </div>
         </td>
 
-        <td className="p-4">
+        <td className="px-4 py-2 text-sm">
           <div className="flex gap-2">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="bg-gray-500 text-white px-3 py-1 rounded"
+              className={`
+              ${
+                expanded
+                  ? "bg-brand-clay"
+                  : "bg-brand-sage hover:bg-brand-forest"
+              }
+              text-white
+              px-4
+              py-2
+              rounded-lg
+              font-medium
+              transition-colors
+              `}
             >
               {expanded ? "Ocultar" : "Tracking"}
             </button>
@@ -109,17 +166,31 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
       </tr>
 
       {expanded && (
-        <tr className="text-black bg-gray-50">
-          <td colSpan={5} className="p-4">
-            <div className="flex flex-col gap-2">
+        <tr className="bg-brand-beige text-brand-forest">
+          <td colSpan={5} className="px-4 py-2 text-sm">
+            <div className="flex flex-col gap-1">
               {shipment.statuses.map((status) => (
                 <div
                   key={status.id}
-                  className="border rounded p-2 flex justify-between"
+                  className="
+                    bg-white
+                    border
+                    border-brand-sand
+                    rounded-lg
+                    px-3
+                    py-2
+                    flex
+                    justify-between
+                    items-center
+                  "
                 >
-                  <span>{status.description}</span>
+                  <span className="font-medium text-sm">
+                    {status.description}
+                  </span>
 
-                  <span>{new Date(status.timestamp).toLocaleString()}</span>
+                  <span className="text-xs text-brand-sage">
+                    {new Date(status.timestamp).toLocaleString()}
+                  </span>
                 </div>
               ))}
             </div>

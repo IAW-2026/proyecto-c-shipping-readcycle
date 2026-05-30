@@ -25,15 +25,26 @@ export default async function DashboardLayout({ children }) {
     redirect("/admin");
   }
   return (
-    <div className="min-h-full">
-      <nav className="flex justify-between p-5 items-center">
-        <h1 className="font-bold text-2xl">ACME S.A</h1>
-        <UserButton />
+    <div className="min-h-screen bg-brand-beige">
+      <nav className="bg-brand-forest text-white border-b border-brand-sage">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+          <h1 className="text-2xl font-bold tracking-wide">ACME S.A</h1>
+
+          <UserButton />
+        </div>
       </nav>
-      <div className="flex text-4xl justify-center p-5">
-        <h2>Portal de Envios</h2>
-      </div>
-      <div>{children}</div>
+
+      <header className="max-w-7xl mx-auto px-8 py-8">
+        <h2 className="text-4xl font-bold text-brand-forest">
+          Portal de Envíos
+        </h2>
+
+        <p className="text-brand-sage mt-2">
+          Gestión y seguimiento de shipments
+        </p>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-8 pb-10">{children}</main>
     </div>
   );
 }

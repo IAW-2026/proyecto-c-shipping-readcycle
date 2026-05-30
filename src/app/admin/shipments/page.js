@@ -25,6 +25,13 @@ export default async function ShipmentsPage() {
     },
   });
 
+  const permissions = {
+    canCreateShipment: true,
+    canAssignCarrier: true,
+    canCancelShipment: true,
+    canUpdateStatus: true,
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -33,7 +40,11 @@ export default async function ShipmentsPage() {
         <CreateShipmentModal />
       </div>
 
-      <ShipmentsTable shipments={shipments} carriers={carriers} />
+      <ShipmentsTable
+        shipments={shipments}
+        carriers={carriers}
+        permissions={permissions}
+      />
     </div>
   );
 }

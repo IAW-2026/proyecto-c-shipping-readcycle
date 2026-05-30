@@ -2,25 +2,35 @@ import ShipmentRow from "./ShipmentsRow";
 
 export default function ShipmentsTable({ shipments, carriers, permissions }) {
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-lg border border-brand-sand overflow-hidden">
       <table className="w-full">
-        <thead className="bg-gray-100 text-black">
+        <thead className="bg-brand-forest text-white">
           <tr>
-            <th className="text-left p-4">ID</th>
+            <th className="text-left px-6 py-4 font-semibold tracking-wide">
+              ID
+            </th>
 
             {permissions.canAssignCarrier && (
-              <th className="text-left p-4">Order ID</th>
+              <th className="text-left px-6 py-4 font-semibold tracking-wide">
+                Order ID
+              </th>
             )}
 
-            <th className="text-left p-4">Carrier ID</th>
+            <th className="text-left px-6 py-4 font-semibold tracking-wide">
+              Carrier ID
+            </th>
 
-            <th className="text-left p-4">Estado</th>
+            <th className="text-left px-6 py-4 font-semibold tracking-wide">
+              Estado
+            </th>
 
-            <th className="text-left p-4">Acciones</th>
+            <th className="text-left px-6 py-4 font-semibold tracking-wide">
+              Acciones
+            </th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="divide-y divide-brand-sand">
           {shipments.map((shipment) => (
             <ShipmentRow
               key={shipment.id}
