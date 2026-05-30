@@ -15,6 +15,8 @@ const AVAILABLE_STATUSES = [
 export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
   const [expanded, setExpanded] = useState(false);
 
+  const [statusModalOpen, setStatusModalOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState("");
   const latestStatus = shipment.statuses[0]?.description || "PENDING";
 
   function getStatusClass(status) {
@@ -77,7 +79,8 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
 
         {canAssignCarrier && (
           <td className="px-4 py-2">
-            <select
+            {carriers.find((e) => e.id == shipment.carrierId).username}
+            {/* <select
               value={shipment.carrierId || ""}
               onChange={(e) => handleCarrierAssign(e.target.value)}
               className="
@@ -99,7 +102,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
                   {carrier.username}
                 </option>
               ))}
-            </select>
+            </select>*/}
           </td>
         )}
 
@@ -113,7 +116,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
               {latestStatus}
             </span>
 
-            <select
+            {/* <select
               onChange={(e) => handleStatusChange(e.target.value)}
               className="
               border border-brand-sand
@@ -137,7 +140,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
                   {status}
                 </option>
               ))}
-            </select>
+            </select>*/}
           </div>
         </td>
 
@@ -161,6 +164,14 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
             >
               {expanded ? "Ocultar" : "Tracking"}
             </button>
+            {canAssignCarrier && (
+              <button
+                onClick={() => setStatusModalOpen(true)}
+                className="bg-brand-clay text-white px-4 py-2 rounded-lg"
+              >
+                Actualizar Estado
+              </button>
+            )}
           </div>
         </td>
       </tr>
@@ -196,6 +207,44 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
             </div>
           </td>
         </tr>
+      )}
+      {statusModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 className="text-xl font-semibold mb-4">Actualizar estado</h3>
+
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full border rounded-lg p-2"
+            >
+              <option value="">Seleccione estado</option>
+
+              {AVAILABLE_STATUSES.map((status) => (
+                <option key={status}>{status}</option>
+              ))}
+            </select>
+
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                onClick={() => setStatusModalOpen(false)}
+                className="border px-4 py-2 rounded-lg"
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={async () => {
+                  await handleStatusChange(selectedStatus);
+                  setStatusModalOpen(false);
+                }}
+                className="bg-brand-sage text-white px-4 py-2 rounded-lg"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
