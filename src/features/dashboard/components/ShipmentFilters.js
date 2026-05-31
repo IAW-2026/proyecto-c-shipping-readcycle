@@ -17,7 +17,7 @@ export default function ShipmentFilters({ carriers }) {
 
     params.set("page", "1");
 
-    router.push(`/dashboard?${params.toString()}`);
+    router.push(`?${params.toString()}`);
   }
 
   return (

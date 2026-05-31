@@ -12,12 +12,22 @@ export default async function CarrierDashboardView({
   const pageSize = 5;
   const totalShipments = await prisma.shipment.count();
   const totalPages = Math.ceil(totalShipments / pageSize);
+  const where = {
+    carrierId: carrierId,
+    ...(filters.shipmentId && {
+      id: {
+        contains: filters.shipmentId,
+        mode: "insensitive",
+      },
+    }),
+    ...(filters.status && {
+      currentStatus: filters.status,
+    }),
+  };
   const shipments = await prisma.shipment.findMany({
     take: pageSize,
     skip: (page - 1) * pageSize,
-    where: {
-      carrierId: carrierId,
-    },
+    where,
     include: {
       statuses: {
         orderBy: {
