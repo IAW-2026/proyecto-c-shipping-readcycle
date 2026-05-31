@@ -4,7 +4,9 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-brand-forest text-white flex flex-col">
       <div className="px-6 py-8 border-b border-brand-sage">
-        <h1 className="text-2xl font-bold tracking-wide">ACME Logistics</h1>
+        <h1 className="text-2xl font-bold tracking-wide">
+          ReadCycle Logistics
+        </h1>
 
         <p className="text-sm text-brand-sand mt-1">Administration</p>
       </div>

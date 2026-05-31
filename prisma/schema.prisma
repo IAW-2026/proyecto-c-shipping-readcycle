@@ -44,6 +44,8 @@ model Shipment {
   carrierId String?
   carrier       User?    @relation(fields: [carrierId], references: [id])
 
+  createdAt    DateTime @default(now())
+
   currentStatus StatusDescription @default(PENDING)
   statuses  Status[]
 }
