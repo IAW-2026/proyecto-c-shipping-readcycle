@@ -40,10 +40,7 @@ export default async function DashboardPage({ searchParams, totalPages }) {
         <div className="w-24 h-1 bg-brand-clay rounded-full mt-3" />
       </div>
 
-      <ShipmentFilters
-        filters={{ status, carrierId, shipmentId }}
-        carriers={carriers}
-      />
+      <ShipmentFilters carriers={carriers} />
 
       {user.role === "OPERATOR" ? (
         <OperatorDashboardView

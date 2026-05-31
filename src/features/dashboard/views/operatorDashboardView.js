@@ -10,15 +10,34 @@ export default async function OperatorDashboardView({
   const pageSize = 5;
   const totalShipments = await prisma.shipment.count();
   const totalPages = Math.ceil(totalShipments / pageSize);
+  const where = {
+    ...(filters.carrierId && {
+      carrierId: filters.carrierId,
+    }),
+
+    ...(filters.shipmentId && {
+      id: {
+        contains: filters.shipmentId,
+        mode: "insensitive",
+      },
+    }),
+    ...(filters.status && {
+      currentStatus: filters.status,
+    }),
+  };
+
   const shipments = await prisma.shipment.findMany({
+    where,
+
     take: pageSize,
+
     skip: (page - 1) * pageSize,
+
     include: {
       statuses: {
         orderBy: {
           timestamp: "desc",
         },
-        // take: 1,
       },
     },
 

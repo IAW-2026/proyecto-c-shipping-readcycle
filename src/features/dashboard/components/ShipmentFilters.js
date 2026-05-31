@@ -1,6 +1,25 @@
 "use client";
 
-export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
+import { useRouter, useSearchParams } from "next/navigation";
+
+export default function ShipmentFilters({ carriers }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  function updateFilter(key, value) {
+    const params = new URLSearchParams(searchParams);
+
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    params.set("page", "1");
+
+    router.push(`/dashboard?${params.toString()}`);
+  }
+
   return (
     <div className="bg-white border border-brand-sand rounded-xl p-4 mb-6 shadow-sm">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -11,8 +30,8 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
 
           <input
             type="text"
-            value={filters.shipmentId}
-            onChange={(e) => onFilterChange("shipmentId", e.target.value)}
+            defaultValue={searchParams.get("shipmentId") || ""}
+            onChange={(e) => updateFilter("shipmentId", e.target.value)}
             placeholder="Buscar shipment..."
             className="
               w-full
@@ -22,9 +41,6 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
               px-3
               py-2
               text-sm
-              focus:outline-none
-              focus:ring-2
-              focus:ring-brand-sage
             "
           />
         </div>
@@ -35,8 +51,8 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
           </label>
 
           <select
-            value={filters.status}
-            onChange={(e) => onFilterChange("status", e.target.value)}
+            defaultValue={searchParams.get("status") || ""}
+            onChange={(e) => updateFilter("status", e.target.value)}
             className="
               w-full
               border
@@ -45,13 +61,9 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
               px-3
               py-2
               text-sm
-              focus:outline-none
-              focus:ring-2
-              focus:ring-brand-sage
             "
           >
             <option value="">Todos</option>
-
             <option value="PENDING">Pending</option>
             <option value="PICKED_UP">Picked Up</option>
             <option value="IN_TRANSIT">In Transit</option>
@@ -68,8 +80,8 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
           </label>
 
           <select
-            value={filters.carrierId}
-            onChange={(e) => onFilterChange("carrierId", e.target.value)}
+            defaultValue={searchParams.get("carrierId") || ""}
+            onChange={(e) => updateFilter("carrierId", e.target.value)}
             className="
               w-full
               border
@@ -78,9 +90,6 @@ export default function ShipmentFilters({ filters, carriers, onFilterChange }) {
               px-3
               py-2
               text-sm
-              focus:outline-none
-              focus:ring-2
-              focus:ring-brand-sage
             "
           >
             <option value="">Todos</option>
