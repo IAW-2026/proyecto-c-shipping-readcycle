@@ -26,6 +26,7 @@ model User {
   role         Role
 
   isActive     Boolean  @default(true)
+  shipments    Shipment[]
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -41,7 +42,9 @@ model Shipment {
   id        String   @id @default(cuid())
   orderId   String
   carrierId String?
+  carrier       User?    @relation(fields: [carrierId], references: [id])
 
+  currentStatus StatusDescription @default(PENDING)
   statuses  Status[]
 }
 

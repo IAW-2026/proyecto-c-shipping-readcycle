@@ -38,23 +38,34 @@ export async function GET(_, { params }) {
 export async function PUT(req, { params }) {
   try {
     const body = await req.json();
+
     const { id } = await params;
 
     const shipment = await prisma.shipment.update({
       where: {
-        id: id,
+        id,
       },
+
       data: {
-        orderId: body.orderId,
-        carrierId: body.carrierId,
+        carrierId: body.carrierId || null,
+      },
+
+      include: {
+        carrier: true,
       },
     });
 
     return NextResponse.json(shipment);
   } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { error: "Error updating shipment" },
-      { status: 500 },
+      {
+        error: "Error updating shipment",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }

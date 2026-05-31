@@ -26,6 +26,7 @@ export async function GET(_, { params }) {
 // POST /api/shipments/:id/tracking
 export async function POST(req, { params }) {
   const { id } = await params;
+
   try {
     const body = await req.json();
 
@@ -42,21 +43,48 @@ export async function POST(req, { params }) {
     ];
 
     if (!validStatuses.includes(description)) {
-      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "Invalid status",
+        },
+        {
+          status: 400,
+        },
+      );
     }
 
-    const status = await prisma.status.create({
-      data: {
-        description,
-        shipmentId: id,
-      },
-    });
+    const [, shipment] = await prisma.$transaction([
+      prisma.status.create({
+        data: {
+          description,
+          shipmentId: id,
+        },
+      }),
 
-    return NextResponse.json(status, { status: 201 });
+      prisma.shipment.update({
+        where: {
+          id,
+        },
+
+        data: {
+          currentStatus: description,
+        },
+      }),
+    ]);
+
+    return NextResponse.json(shipment, {
+      status: 201,
+    });
   } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { error: "Error creating tracking status" },
-      { status: 500 },
+      {
+        error: "Error creating tracking status",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }

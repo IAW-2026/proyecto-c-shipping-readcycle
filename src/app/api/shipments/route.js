@@ -28,35 +28,58 @@ export async function POST(req) {
   try {
     const body = await req.json();
 
-    const { orderId, carrierId } = body;
+    const { orderId } = body;
 
-    if (!orderId || !carrierId) {
+    if (!orderId) {
       return NextResponse.json(
-        { error: "orderId and carrierId are required" },
-        { status: 400 },
+        {
+          error: "orderId is required",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     const shipment = await prisma.shipment.create({
       data: {
         orderId,
-        carrierId,
+
+        carrierId: null,
+
+        currentStatus: "PENDING",
+
         statuses: {
           create: {
             description: "PENDING",
           },
         },
       },
+
       include: {
-        statuses: true,
+        carrier: true,
+
+        statuses: {
+          orderBy: {
+            timestamp: "desc",
+          },
+        },
       },
     });
 
-    return NextResponse.json(shipment, { status: 201 });
+    return NextResponse.json(shipment, {
+      status: 201,
+    });
   } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { error: "Error creating shipment" },
-      { status: 500 },
+      {
+        error: "Error creating shipment",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }
