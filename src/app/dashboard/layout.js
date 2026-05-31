@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import Topbar from "@/features/admin/components/Topbar";
 
 export default async function DashboardLayout({ children }) {
   const { userId } = await auth();
@@ -26,13 +27,21 @@ export default async function DashboardLayout({ children }) {
   }
   return (
     <div className="min-h-screen bg-brand-beige">
-      <nav className="bg-brand-forest text-white border-b border-brand-sage">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
-          <h1 className="text-2xl font-bold tracking-wide">ACME S.A</h1>
+      <header className="bg-brand-forest border-b border-brand-sand px-8 py-5">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-brand-sand font-bold text-2xl">
+              ReadCycle Logistics
+            </h2>
+          </div>
 
-          <UserButton />
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-brand-sand">{user.username}</span>
+
+            <UserButton />
+          </div>
         </div>
-      </nav>
+      </header>
 
       <header className="max-w-7xl mx-auto px-8 py-8">
         <h2 className="text-4xl font-bold text-brand-forest">

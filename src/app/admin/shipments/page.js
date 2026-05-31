@@ -5,11 +5,14 @@ import CreateShipmentModal from "@/features/admin/components/CreateShipmentModal
 import ShipmentFilters from "@/features/dashboard/components/ShipmentFilters";
 import ShipmentPagination from "@/features/dashboard/components/ShipmentPagination";
 
-export default async function ShipmentsPage({ searchParams, totalPages }) {
+export default async function ShipmentsPage({ searchParams }) {
   const searchedParams = await searchParams;
 
   const page = Number(searchedParams.page) || 1;
   const pageSize = 5;
+
+  const totalShipments = await prisma.shipment.count();
+  const totalPages = Math.ceil(totalShipments / pageSize);
 
   const status = searchedParams.status;
   const carrierId = searchedParams.carrierId;
@@ -67,7 +70,7 @@ export default async function ShipmentsPage({ searchParams, totalPages }) {
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl text-black font-bold">Shipments</h1>
 
-        <CreateShipmentModal />
+        <CreateShipmentModal carriers={carriers} />
       </div>
 
       <ShipmentFilters carriers={carriers} />

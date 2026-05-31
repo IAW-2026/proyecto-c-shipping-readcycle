@@ -73,6 +73,10 @@ export default function ShipmentRow({
     window.location.reload();
   }
 
+  const carrierAssigned = carriers.find(
+    (e) => e.id == shipment.carrierId,
+  )?.username;
+
   return (
     <>
       <tr className="text-brand-forest hover:bg-brand-beige transition-colors">
@@ -82,7 +86,7 @@ export default function ShipmentRow({
 
         {canAssignCarrier && (
           <td className="px-4 py-2">
-            {carriers.find((e) => e.id == shipment.carrierId).username}
+            {carrierAssigned ? carrierAssigned : "Sin Transportista"}
             {/* <select
               value={shipment.carrierId || ""}
               onChange={(e) => handleCarrierAssign(e.target.value)}
