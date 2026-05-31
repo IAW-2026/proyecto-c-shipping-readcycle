@@ -1,6 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import ShipmentRow from "./ShipmentsRow";
+import UpdateStatusModal from "@/features/dashboard/components/UpdateStatusModal";
 
 export default function ShipmentsTable({ shipments, carriers, permissions }) {
+  const [selectedShipment, setSelectedShipment] = useState(null);
+  const [statusModalOpen, setStatusModalOpen] = useState(false);
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-brand-sand overflow-hidden">
       <table className="w-full text-sm">
@@ -33,10 +39,23 @@ export default function ShipmentsTable({ shipments, carriers, permissions }) {
               shipment={shipment}
               carriers={carriers}
               canAssignCarrier={permissions.canAssignCarrier}
+              onOpenStatusModal={(shipment) => {
+                setSelectedShipment(shipment);
+                setStatusModalOpen(true);
+              }}
             />
           ))}
         </tbody>
       </table>
+      {statusModalOpen && selectedShipment && (
+        <UpdateStatusModal
+          shipment={selectedShipment}
+          onClose={() => {
+            setStatusModalOpen(false);
+            setSelectedShipment(null);
+          }}
+        />
+      )}
     </div>
   );
 }

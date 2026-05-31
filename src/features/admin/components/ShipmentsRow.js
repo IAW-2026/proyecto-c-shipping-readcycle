@@ -12,12 +12,15 @@ const AVAILABLE_STATUSES = [
   "CANCELLED",
 ];
 
-export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
+export default function ShipmentRow({
+  shipment,
+  carriers,
+  canAssignCarrier,
+  onOpenStatusModal,
+}) {
   const [expanded, setExpanded] = useState(false);
 
-  const [statusModalOpen, setStatusModalOpen] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const latestStatus = shipment.statuses[0]?.description || "PENDING";
+  const latestStatus = shipment.currentStatus;
 
   function getStatusClass(status) {
     switch (status) {
@@ -166,7 +169,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
             </button>
             {canAssignCarrier && (
               <button
-                onClick={() => setStatusModalOpen(true)}
+                onClick={() => onOpenStatusModal(shipment)}
                 className="bg-brand-clay text-white px-4 py-2 rounded-lg"
               >
                 Actualizar Estado
@@ -208,7 +211,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
           </td>
         </tr>
       )}
-      {statusModalOpen && (
+      {/* {statusModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Actualizar estado</h3>
@@ -245,7 +248,7 @@ export default function ShipmentRow({ shipment, carriers, canAssignCarrier }) {
             </div>
           </div>
         </div>
-      )}
+      )}*/}
     </>
   );
 }
