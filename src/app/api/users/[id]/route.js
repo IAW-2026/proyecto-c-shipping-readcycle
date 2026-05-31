@@ -66,3 +66,35 @@ export async function DELETE(req, { params }) {
     return NextResponse.json({ error: "Error deleting user" }, { status: 500 });
   }
 }
+
+export async function PUT(req, { params }) {
+  try {
+    const { id } = await params;
+
+    const body = await req.json();
+
+    const user = await prisma.user.update({
+      where: {
+        id,
+      },
+
+      data: {
+        username: body.username,
+        email: body.email,
+        role: body.role,
+        isActive: body.isActive,
+      },
+    });
+
+    return NextResponse.json(user);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: "Error updating user",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}

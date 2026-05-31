@@ -26,9 +26,13 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-black mb-8">Dashboard</h1>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-brand-forest">Dashboard</h1>
 
-      <div className="grid grid-cols-4 gap-6">
+        <div className="w-24 h-1 bg-brand-clay rounded-full mt-3" />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <Card title="Usuarios" value={totalUsers} />
 
         <Card title="Operadores" value={totalOperators} />
@@ -43,10 +47,23 @@ export default async function AdminDashboard() {
 
 function Card({ title, value }) {
   return (
-    <div className="bg-white rounded-xl shadow p-6">
-      <h3 className="text-gray-500 text-sm">{title}</h3>
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        border
+        border-brand-sand
+        p-6
+        shadow-sm
+        hover:shadow-md
+        transition-shadow
+      "
+    >
+      <h3 className="text-brand-sage text-sm font-medium uppercase tracking-wide">
+        {title}
+      </h3>
 
-      <p className="text-4xl text-black font-bold mt-4">{value}</p>
+      <p className="text-5xl text-brand-forest font-bold mt-3">{value}</p>
     </div>
   );
 }

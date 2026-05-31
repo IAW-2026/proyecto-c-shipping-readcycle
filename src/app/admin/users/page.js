@@ -13,7 +13,11 @@ export default async function UsersPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl text-black font-bold">Usuarios</h1>
+        <div>
+          <h1 className="text-4xl font-bold text-brand-forest">Usuarios</h1>
+
+          <div className="w-24 h-1 bg-brand-clay rounded-full mt-3" />
+        </div>
 
         <CreateUserModal />
       </div>

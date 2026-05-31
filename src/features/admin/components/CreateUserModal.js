@@ -32,7 +32,16 @@ export default function CreateUserModal() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="bg-black text-white px-4 py-2 rounded"
+        className="
+          bg-brand-sage
+          hover:bg-brand-forest
+          text-white
+          px-5
+          py-3
+          rounded-xl
+          font-medium
+          transition-colors
+        "
       >
         Crear usuario
       </button>
@@ -40,17 +49,48 @@ export default function CreateUserModal() {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+    <div
+      className="
+      fixed
+      inset-0
+      bg-black/50
+      flex
+      items-center
+      justify-center
+      z-50
+    "
+    >
       <form
         onSubmit={handleSubmit}
-        className="text-black bg-white p-6 rounded-xl w-100"
+        className="
+          bg-white
+          border
+          border-brand-sand
+          rounded-2xl
+          shadow-xl
+          p-8
+          w-full
+          max-w-lg
+        "
       >
-        <h2 className="text-2xl font-bold mb-6">Crear usuario</h2>
+        <h2 className="text-2xl font-bold text-brand-forest mb-6">
+          Crear usuario
+        </h2>
 
         <div className="flex flex-col gap-4">
           <input
             placeholder="Username"
-            className="border p-3 rounded"
+            className="
+              border
+              border-brand-sand
+              rounded-xl
+              px-4
+              py-3
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+            "
             onChange={(e) =>
               setForm({
                 ...form,
@@ -61,7 +101,17 @@ export default function CreateUserModal() {
 
           <input
             placeholder="Email"
-            className="border p-3 rounded"
+            className="
+              border
+              border-brand-sand
+              rounded-xl
+              px-4
+              py-3
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+            "
             onChange={(e) =>
               setForm({
                 ...form,
@@ -73,7 +123,17 @@ export default function CreateUserModal() {
           <input
             type="password"
             placeholder="Password"
-            className="border p-3 rounded"
+            className="
+              border
+              border-brand-sand
+              rounded-xl
+              px-4
+              py-3
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+            "
             onChange={(e) =>
               setForm({
                 ...form,
@@ -83,7 +143,17 @@ export default function CreateUserModal() {
           />
 
           <select
-            className="border p-3 rounded"
+            className="
+              border
+              border-brand-sand
+              rounded-xl
+              px-4
+              py-3
+              text-brand-forest
+              focus:outline-none
+              focus:ring-2
+              focus:ring-brand-sage
+            "
             onChange={(e) =>
               setForm({
                 ...form,
@@ -98,10 +168,29 @@ export default function CreateUserModal() {
             <option value="ADMIN">ADMIN</option>
           </select>
 
-          <button className="bg-black text-white p-3 rounded">Crear</button>
+          <button
+            className="
+            bg-brand-sage
+            hover:bg-brand-forest
+            text-white
+            py-3
+            rounded-xl
+            font-medium
+            transition-colors
+          "
+          >
+            Crear
+          </button>
           <button
             onClick={() => setOpen(false)}
-            className="bg-red-500 text-white p-3 rounded"
+            className="
+              bg-brand-clay
+              hover:opacity-90
+              text-white
+              py-3
+              rounded-xl
+              font-medium
+            "
           >
             Cancel
           </button>

@@ -1,29 +1,53 @@
+"use client";
+
+import { useState } from "react";
 import UserRow from "./UserRow";
+import EditUserModal from "./EditUserModal";
 
 export default function UsersTable({ users }) {
+  const [selectedUser, setSelectedUser] = useState(null);
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        shadow-lg
+        border
+        border-brand-sand
+        overflow-hidden
+      "
+    >
       <table className="w-full">
-        <thead className="bg-gray-100 text-black">
+        <thead className="bg-brand-forest text-white">
           <tr>
-            <th className="text-left p-4">Username</th>
+            <th className="px-4 py-3 text-left font-semibold">Username</th>
 
-            <th className="text-left p-4">Email</th>
+            <th className="px-4 py-3 text-left font-semibold">Email</th>
 
-            <th className="text-left p-4">Rol</th>
+            <th className="px-4 py-3 text-left font-semibold">Rol</th>
 
-            <th className="text-left p-4">Estado</th>
+            <th className="px-4 py-3 text-left font-semibold">Estado</th>
 
-            <th className="text-left p-4">Acciones</th>
+            <th className="px-4 py-3 text-left font-semibold">Acciones</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="divide-y divide-brand-sand">
           {users.map((user) => (
-            <UserRow key={user.id} user={user} />
+            <UserRow
+              key={user.id}
+              user={user}
+              onEdit={() => setSelectedUser(user)}
+            />
           ))}
         </tbody>
       </table>
+      {selectedUser && (
+        <EditUserModal
+          user={selectedUser}
+          onClose={() => setSelectedUser(null)}
+        />
+      )}
     </div>
   );
 }
