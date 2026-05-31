@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 
 import ShipmentsTable from "@/features/admin/components/ShipmentsTable";
+import ShipmentPagination from "../components/ShipmentPagination";
 
 export default async function OperatorDashboardView({
   permissions,
@@ -51,13 +52,15 @@ export default async function OperatorDashboardView({
       role: "CARRIER",
     },
   });
-
   return (
-    <ShipmentsTable
-      shipments={shipments}
-      carriers={carriers}
-      permissions={permissions}
-      totalPages={totalPages}
-    />
+    <>
+      <ShipmentsTable
+        shipments={shipments}
+        carriers={carriers}
+        permissions={permissions}
+        totalPages={totalPages}
+      />
+      <ShipmentPagination totalPages={totalPages} currentPage={page} />
+    </>
   );
 }

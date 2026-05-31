@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 
 import ShipmentsTable from "@/features/admin/components/ShipmentsTable";
-import { auth } from "@clerk/nextjs/server";
+import ShipmentPagination from "../components/ShipmentPagination";
 
 export default async function CarrierDashboardView({
   permissions,
@@ -9,9 +9,6 @@ export default async function CarrierDashboardView({
   page,
   filters,
 }) {
-  const pageSize = 5;
-  const totalShipments = await prisma.shipment.count();
-  const totalPages = Math.ceil(totalShipments / pageSize);
   const where = {
     carrierId: carrierId,
     ...(filters.shipmentId && {
@@ -24,6 +21,7 @@ export default async function CarrierDashboardView({
       currentStatus: filters.status,
     }),
   };
+  const pageSize = 5;
   const shipments = await prisma.shipment.findMany({
     take: pageSize,
     skip: (page - 1) * pageSize,
@@ -41,11 +39,16 @@ export default async function CarrierDashboardView({
       id: "desc",
     },
   });
+  const totalShipments = shipments.length;
+  const totalPages = Math.ceil(totalShipments / pageSize);
   return (
-    <ShipmentsTable
-      shipments={shipments}
-      permissions={permissions}
-      totalPages={totalPages}
-    />
+    <>
+      <ShipmentsTable
+        shipments={shipments}
+        permissions={permissions}
+        totalPages={totalPages}
+      />
+      <ShipmentPagination totalPages={totalPages} currentPage={page} />
+    </>
   );
 }

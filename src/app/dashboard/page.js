@@ -56,7 +56,6 @@ export default async function DashboardPage({ searchParams, totalPages }) {
           filters={{ status, carrierId, shipmentId }}
         />
       )}
-      <ShipmentPagination currentPage={page} totalPages={totalPages} />
     </div>
   );
 }

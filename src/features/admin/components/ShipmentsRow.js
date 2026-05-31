@@ -73,7 +73,7 @@ export default function ShipmentRow({
     window.location.reload();
   }
 
-  const carrierAssigned = carriers.find(
+  const carrierAssigned = carriers?.find(
     (e) => e.id == shipment.carrierId,
   )?.username;
 
@@ -86,8 +86,7 @@ export default function ShipmentRow({
 
         {canAssignCarrier && (
           <td className="px-4 py-2">
-            {carrierAssigned ? carrierAssigned : "Sin Transportista"}
-            {/* <select
+            <select
               value={shipment.carrierId || ""}
               onChange={(e) => handleCarrierAssign(e.target.value)}
               className="
@@ -109,7 +108,7 @@ export default function ShipmentRow({
                   {carrier.username}
                 </option>
               ))}
-            </select>*/}
+            </select>
           </td>
         )}
 
@@ -171,14 +170,13 @@ export default function ShipmentRow({
             >
               {expanded ? "Ocultar" : "Tracking"}
             </button>
-            {canAssignCarrier && (
-              <button
-                onClick={() => onOpenStatusModal(shipment)}
-                className="bg-brand-clay text-white px-4 py-2 rounded-lg"
-              >
-                Actualizar Estado
-              </button>
-            )}
+
+            <button
+              onClick={() => onOpenStatusModal(shipment)}
+              className="bg-brand-clay text-white px-4 py-2 rounded-lg"
+            >
+              Actualizar Estado
+            </button>
           </div>
         </td>
       </tr>
