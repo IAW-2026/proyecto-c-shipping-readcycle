@@ -22,10 +22,13 @@ export default function CreateShipmentModal({ carriers }) {
     try {
       setLoading(true);
 
+      const token = await window.Clerk.session.getToken();
+
       const response = await fetch("/api/shipments", {
         method: "POST",
 
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
 
