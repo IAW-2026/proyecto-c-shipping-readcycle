@@ -1,3 +1,4 @@
+import { verifyClerkJWT } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -5,6 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(_, { params }) {
   const { id } = await params;
   try {
+    const payload = await verifyClerkJWT(req);
     const shipment = await prisma.shipment.findUnique({
       where: {
         id: id,
@@ -37,6 +39,7 @@ export async function GET(_, { params }) {
 // PUT /api/shipments/:id
 export async function PUT(req, { params }) {
   try {
+    const payload = await verifyClerkJWT(req);
     const body = await req.json();
 
     const { id } = await params;

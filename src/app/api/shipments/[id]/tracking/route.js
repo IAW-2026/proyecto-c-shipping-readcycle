@@ -1,3 +1,4 @@
+import { verifyClerkJWT } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -5,6 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(_, { params }) {
   const { id } = await params;
   try {
+    const payload = await verifyClerkJWT(req);
     const statuses = await prisma.status.findMany({
       where: {
         shipmentId: id,
@@ -28,6 +30,7 @@ export async function POST(req, { params }) {
   const { id } = await params;
 
   try {
+    const payload = await verifyClerkJWT(req);
     const body = await req.json();
 
     const { description } = body;

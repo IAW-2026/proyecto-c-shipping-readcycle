@@ -3,6 +3,7 @@ import { clerkClient } from "@clerk/nextjs/server";
 
 import prisma from "@/lib/prisma";
 import requireAdmin from "@/lib/requireAdmin";
+import { verifyClerkJWT } from "@/lib/jwt";
 
 export async function PATCH(req, { params }) {
   const authResult = await requireAdmin();
@@ -12,6 +13,7 @@ export async function PATCH(req, { params }) {
   }
 
   try {
+    const payload = await verifyClerkJWT(req);
     const body = await req.json();
 
     const updatedUser = await prisma.user.update({
@@ -41,6 +43,7 @@ export async function DELETE(req, { params }) {
   }
 
   try {
+    const payload = await verifyClerkJWT(req);
     const user = await prisma.user.update({
       where: {
         id: params.id,
@@ -69,6 +72,7 @@ export async function DELETE(req, { params }) {
 
 export async function PUT(req, { params }) {
   try {
+    const payload = await verifyClerkJWT(req);
     const { id } = await params;
 
     const body = await req.json();
