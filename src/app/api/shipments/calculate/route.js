@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
+import { verifyClerkJWT } from "@/lib/jwt";
 
 // POST /api/shipments/calculate
 export async function POST(req) {
   try {
+    const payload = await verifyClerkJWT(req);
     const body = await req.json();
 
     const { weight } = body;
@@ -26,7 +28,11 @@ export async function POST(req) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error calculating shipment cost" },
+      {
+        error: error.message
+          ? "Error calculating shipment cost"
+          : "Unauthorized",
+      },
       { status: 500 },
     );
   }
