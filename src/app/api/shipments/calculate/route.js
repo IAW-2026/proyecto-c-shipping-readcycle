@@ -5,11 +5,11 @@ export async function POST(req) {
   try {
     const body = await req.json();
 
-    const { weight, distance } = body;
+    const { weight } = body;
 
-    if (!weight || !distance) {
+    if (!weight) {
       return NextResponse.json(
-        { error: "weight and distance are required" },
+        { error: "weight are required" },
         { status: 400 },
       );
     }
@@ -18,13 +18,10 @@ export async function POST(req) {
 
     const weightCost = weight * 200;
 
-    const distanceCost = distance * 15;
-
-    const total = basePrice + weightCost + distanceCost;
+    const total = basePrice + weightCost;
 
     return NextResponse.json({
       weight,
-      distance,
       total,
     });
   } catch (error) {
