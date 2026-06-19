@@ -13,8 +13,6 @@ export default function EditUserModal({ user, onClose }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const token = await window.Clerk.session.getToken();
-
     await fetch(`/api/users/${user.id}`, {
       method: "PUT",
 

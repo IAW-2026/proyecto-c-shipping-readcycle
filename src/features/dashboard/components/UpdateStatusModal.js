@@ -16,7 +16,6 @@ export default function UpdateStatusModal({ shipment, onClose }) {
   const [selectedStatus, setSelectedStatus] = useState("");
 
   async function handleSubmit() {
-    const token = await window.Clerk.session.getToken();
     await fetch(`/api/shipments/${shipment.id}/tracking`, {
       method: "POST",
 

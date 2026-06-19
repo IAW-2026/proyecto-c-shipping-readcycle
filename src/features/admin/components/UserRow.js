@@ -8,7 +8,6 @@ export default function UserRow({ user, onEdit }) {
       return;
     }
 
-    const token = await window.Clerk.session.getToken();
     await fetch(`/api/users/${user.id}`, {
       method: "DELETE",
 

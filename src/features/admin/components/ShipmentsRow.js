@@ -42,7 +42,6 @@ export default function ShipmentRow({
   }
 
   async function handleStatusChange(status) {
-    const token = await window.Clerk.session.getToken();
     await fetch(`/api/shipments/${shipment.id}/tracking`, {
       method: "POST",
 
@@ -60,7 +59,6 @@ export default function ShipmentRow({
   }
 
   async function handleCarrierAssign(carrierId) {
-    const token = await window.Clerk.session.getToken();
     await fetch(`/api/shipments/${shipment.id}`, {
       method: "PUT",
 
