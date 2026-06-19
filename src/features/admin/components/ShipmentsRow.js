@@ -47,7 +47,7 @@ export default function ShipmentRow({
       method: "POST",
 
       headers: {
-        Authorization: `Bearer ${token}`,
+        "X-API-Key": `${process.env.API_TOKEN}`,
         "Content-Type": "application/json",
       },
 
@@ -65,7 +65,7 @@ export default function ShipmentRow({
       method: "PUT",
 
       headers: {
-        Authorization: `Bearer ${token}`,
+        "X-API-Key": `${process.env.API_TOKEN}`,
         "Content-Type": "application/json",
       },
 

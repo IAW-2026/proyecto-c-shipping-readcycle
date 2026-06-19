@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { verifyClerkJWT } from "@/lib/jwt";
+import { checkAPIToken } from "@/lib/jwt";
 
 // POST /api/shipments/calculate
 export async function POST(req) {
   try {
-    const payload = await verifyClerkJWT(req);
+    await checkAPIToken(req);
     const body = await req.json();
 
     const { weight } = body;

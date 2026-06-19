@@ -13,7 +13,7 @@ export default function UserRow({ user, onEdit }) {
       method: "DELETE",
 
       headers: {
-        Authorization: `Bearer ${token}`,
+        "X-API-Key": `${process.env.API_TOKEN}`,
       },
     });
 

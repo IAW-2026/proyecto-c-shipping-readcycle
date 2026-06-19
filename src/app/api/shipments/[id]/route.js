@@ -1,12 +1,12 @@
-import { verifyClerkJWT } from "@/lib/jwt";
+import { checkAPIToken } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET /api/shipments/:id
-export async function GET(_, { params }) {
+export async function GET(req, { params }) {
   const { id } = await params;
   try {
-    const payload = await verifyClerkJWT(req);
+    await checkAPIToken(req);
     const shipment = await prisma.shipment.findUnique({
       where: {
         id: id,
@@ -39,7 +39,7 @@ export async function GET(_, { params }) {
 // PUT /api/shipments/:id
 export async function PUT(req, { params }) {
   try {
-    const payload = await verifyClerkJWT(req);
+    await checkAPIToken(req);
     const body = await req.json();
 
     const { id } = await params;
@@ -72,26 +72,3 @@ export async function PUT(req, { params }) {
     );
   }
 }
-
-// // DELETE /api/shipments/:id
-// export async function DELETE(_, { context }) {
-//   try {
-//     const params = await context;
-//     console.log(params.id);
-
-//     await prisma.shipment.delete({
-//       where: {
-//         id: params.id,
-//       },
-//     });
-
-//     return NextResponse.json({
-//       message: "Shipment deleted",
-//     });
-//   } catch (error) {
-//     return NextResponse.json(
-//       { error: "Error deleting shipment" },
-//       { status: 500 },
-//     );
-//   }
-// }

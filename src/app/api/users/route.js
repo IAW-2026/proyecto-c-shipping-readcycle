@@ -3,9 +3,9 @@ import { clerkClient } from "@clerk/nextjs/server";
 
 import prisma from "@/lib/prisma";
 import requireAdmin from "@/lib/requireAdmin";
-import { verifyClerkJWT } from "@/lib/jwt";
+import { checkAPIToken } from "@/lib/jwt";
 
-export async function GET() {
+export async function GET(req) {
   const authResult = await requireAdmin();
 
   if (authResult.error) {
@@ -13,7 +13,7 @@ export async function GET() {
   }
 
   try {
-    const payload = await verifyClerkJWT(req);
+    checkAPIToken(req);
     const users = await prisma.user.findMany({
       select: {
         id: true,
@@ -48,7 +48,7 @@ export async function POST(req) {
   }
 
   try {
-    const payload = await verifyClerkJWT(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const { email, username, password, role } = body;

@@ -19,7 +19,7 @@ export default function EditUserModal({ user, onClose }) {
       method: "PUT",
 
       headers: {
-        Authorization: `Bearer ${token}`,
+        "X-API-Key": `${process.env.API_TOKEN}`,
         "Content-Type": "application/json",
       },
 

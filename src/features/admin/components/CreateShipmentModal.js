@@ -28,7 +28,7 @@ export default function CreateShipmentModal({ carriers }) {
         method: "POST",
 
         headers: {
-          Authorization: `Bearer ${token}`,
+          "X-API-Key": `${process.env.API_TOKEN}`,
           "Content-Type": "application/json",
         },
 
