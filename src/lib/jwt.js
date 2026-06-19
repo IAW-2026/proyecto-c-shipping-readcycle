@@ -1,4 +1,4 @@
-const API_TOKEN = new URL(process.env.API_TOKEN);
+const API_TOKEN = process.env.API_TOKEN;
 
 export async function checkAPIToken(req) {
   const apiToken = req.headers.get("x-api-token");
