@@ -41,12 +41,6 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-  const authResult = await requireAdmin();
-
-  if (authResult.error) {
-    return authResult.error;
-  }
-
   try {
     checkAPIToken(req);
     const body = await req.json();
@@ -61,6 +55,8 @@ export async function POST(req) {
 
     // Crear usuario en Clerk
     const clerkUser = await clerk.users.createUser({
+      firstName: username,
+      lastName: username,
       emailAddress: [email],
       password,
     });
