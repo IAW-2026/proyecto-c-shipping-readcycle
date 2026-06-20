@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // GET /api/shipments
 export async function GET(req) {
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const shipments = await prisma.shipment.findMany({
       include: {
         statuses: {
@@ -28,7 +28,7 @@ export async function GET(req) {
 // POST /api/shipments
 export async function POST(req) {
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const { orderId } = body;

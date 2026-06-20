@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   const { id } = await params;
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const statuses = await prisma.status.findMany({
       where: {
         shipmentId: id,
@@ -30,7 +30,7 @@ export async function POST(req, { params }) {
   const { id } = await params;
 
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const { description } = body;

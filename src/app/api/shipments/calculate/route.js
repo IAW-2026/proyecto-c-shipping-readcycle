@@ -4,7 +4,7 @@ import { checkAPIToken } from "@/lib/jwt";
 // POST /api/shipments/calculate
 export async function POST(req) {
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const { weight } = body;

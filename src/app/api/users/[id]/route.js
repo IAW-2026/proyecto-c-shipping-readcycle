@@ -13,7 +13,7 @@ export async function PATCH(req, { params }) {
   }
 
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const updatedUser = await prisma.user.update({
@@ -43,7 +43,7 @@ export async function DELETE(req, { params }) {
   }
 
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const user = await prisma.user.update({
       where: {
         id: params.id,
@@ -72,7 +72,7 @@ export async function DELETE(req, { params }) {
 
 export async function PUT(req, { params }) {
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const { id } = await params;
 
     const body = await req.json();

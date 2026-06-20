@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   const { id } = await params;
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const shipment = await prisma.shipment.findUnique({
       where: {
         id: id,
@@ -39,7 +39,7 @@ export async function GET(req, { params }) {
 // PUT /api/shipments/:id
 export async function PUT(req, { params }) {
   try {
-    await checkAPIToken(req);
+    checkAPIToken(req);
     const body = await req.json();
 
     const { id } = await params;
