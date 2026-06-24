@@ -6,11 +6,11 @@ import requireAdmin from "@/lib/requireAdmin";
 import { checkAPIToken } from "@/lib/jwt";
 
 export async function GET(req) {
-  const authResult = await requireAdmin();
+  // const authResult = await requireAdmin();
 
-  if (authResult.error) {
-    return authResult.error;
-  }
+  // if (authResult.error) {
+  //   return authResult.error;
+  // }
 
   try {
     checkAPIToken(req);
